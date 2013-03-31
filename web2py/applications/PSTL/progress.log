@@ -1,0 +1,22 @@
+[2013-03-23 12:57:19] START
+[2013-03-23 12:57:19] CREATE test.html: 0
+[2013-03-23 12:58:20] EDIT welcome/views/test.html: 176
+[2013-03-23 12:58:24] EDIT welcome/views/test.html: 0
+[2013-03-23 12:58:25] EDIT welcome/views/test.html: 0
+[2013-03-23 12:58:25] EDIT welcome/views/test.html: 0
+[2013-03-23 12:58:35] EDIT welcome/views/test.html: 0
+[2013-03-23 12:58:36] EDIT welcome/views/test.html: 0
+[2013-03-23 12:58:37] EDIT welcome/views/test.html: 0
+[2013-03-23 12:58:38] EDIT welcome/views/test.html: 0
+[2013-03-23 12:58:39] EDIT welcome/views/test.html: 0
+[2013-03-23 12:59:15] UPLOAD /home/toinou/Documents/UPMC/Master/PSTL/web2py/applications/welcome/static/builtin.js: 1
+[2013-03-23 12:59:21] UPLOAD /home/toinou/Documents/UPMC/Master/PSTL/web2py/applications/welcome/static/skulpt.js: 482
+[2013-03-23 15:44:39] CREATE definition.py: 0
+[2013-03-23 15:45:40] EDIT welcome/private/definition.py: 2
+[2013-03-23 15:45:46] EDIT welcome/private/definition.py: 0
+[2013-03-23 15:45:46] EDIT welcome/private/definition.py: 0
+[2013-03-23 15:45:46] EDIT welcome/private/definition.py: 0
+[2013-03-23 15:45:47] EDIT welcome/private/definition.py: 0
+[2013-03-23 15:45:47] EDIT welcome/private/definition.py: 0
+[2013-03-23 15:45:47] EDIT welcome/private/definition.py: 0
+[2013-03-25 11:16:16] CREATE default/tmesolo.html: 0
