@@ -23,17 +23,14 @@ def index():
 import os
     
 def test():
+    db = DAL('sqlite://storage.db')
+    uri = db._uri
     fp = os.path.join(request.folder,'private','definition.py')
     f = open(fp,'r+')
-    """
-    for line in f:
-        a = a + line
-	message=a
-	"""
     message=f.read()
     f.close()
-    return dict(message=message) 
-
+    return dict(message=message,uri=uri) 
+@auth.requires_login()
 def tmesolo():
     return dict(message='Tme solo')
 

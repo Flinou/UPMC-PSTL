@@ -1,0 +1,219 @@
+(dp1
+S'output'
+p2
+S'Unable to open included view file: /home/toinou/Documents/UPMC/Master/PSTL/UPMC-PSTL/web2py/applications/PSTL/views/layout.html'
+p3
+sS'layer'
+p4
+S'ParserContainer'
+p5
+sS'code'
+p6
+S'<html>\n<head>\n<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js" type="text/javascript"></script>\n<script src="http://code.jquery.com/jquery-1.9.1.js"></script>\n<script src="{{=URL(\'static\',\'skulpt.js\')}}"></script>\n<script src="{{=URL(\'static\',\'builtin.js\')}}"></script>\n<script src="{{=URL(\'static\',\'jquery-linedtextarea.js\')}}"></script>\n<link href="{{=URL(\'static\',\'jquery-linedtextarea.css\')}}" type="text/css" rel="stylesheet"/>\n\n<title>Prototype PSTL</title>\n</head>\n<body>\n{{extend \'layout.html\'}}\n\n\n<br />\n<div name="q-r">\n<div name="quest">\n<textarea  name = "1" rows=\'1\' cols=\'80\' id=\'question\' >\nQuelle est la commande permettant d afficher Hello world ?</textarea>\n</div>\n<br />\n\n\n<div name="rep">\n<textarea class="lined"name = "1" rows=\'10\' cols=\'80\' id=\'code1\' ></textarea>\t\n</div>\n</div>\n\n\n<button type="button" onclick="runit(code1,output1,1)">Run</button>\n<br />\n<pre id="output1" >Resultat de la fonction : </pre>\n<br /><br /> \n\n\n<div name="q-r">\n<div name="quest">\n<textarea name = "1" rows=\'1\' cols=\'80\' id=\'question1\' >\nQuelle est la commande permettant d\'affecter 5 a x et de l\'afficher ?</textarea>\n<br />\n</div>\n\n\n<div name="rep">\n<textarea class="lined"name = "1" rows=\'10\' cols=\'80\' id=\'code2\' ></textarea>\t\n</div>\n\n</div>\n\n<button type="button" onclick="runit(code2,output2,2)">Run</button>\n\n<br />\n<pre id="output2" >Resultat de la fonction : </pre>\n<br /><br /> \n\n<div name="q-r">\n  <div name="quest">\n    <textarea name = "2" rows=\'1\' cols=\'80\' id=\'question2\' >Comment se dit fromage en anglais ?</textarea>\n  </div>\n\n  <div name="rep">\n    <div id="qcm1">\n      <input type="radio" onclick="checkcase(qcm1,box)"  id="box" value="Cheese" > Cheese<br>\n      <input type="radio" onclick="checkcase(qcm1,box1)"  id="box1" value="pumpkin"> pumpkin<br>\n      <input type="radio" onclick="checkcase(qcm1,box2)"  id="box2" value="tomato"> tomato<br>\n      <input type="radio" onclick="checkcase(qcm1,box3)"  id="box3" value="patrick"> Patrick<br>\n      <input type="button" onclick="verif(qcm1,1,3);" value="Check">\n    </div>\n  </div>\n</div>\n\n<br/>\n\n<div name="q-r">\n  <div name="quest">\n    <textarea name = "2" rows=\'1\' cols=\'80\' id=\'question2\' >Quel est le langage utilise ?</textarea>\n  </div>\n\n  <div name="rep">\n    <div id="qcm2">\n      <input type="radio" onclick="checkcase(qcm2,box4);" id="box4" value="C" > C<br>\n      <input type="radio" onclick="checkcase(qcm2,box5);" id="box5" value="Ada"> Ada<br>\n      <input type="radio" onclick="checkcase(qcm2,box6);" id="box6" value="Python"> Python<br>\n      <input type="radio" onclick="checkcase(qcm2,box7);" id="box7" value="Java"> Java<br>\n      <input type="button" onclick="verif(qcm2,2,4);" value="Check">\n    </div>\n  </div>\n</div>\n\n\n<br />\n\n<input type="button" onclick="download();" value="Save">\n<script type="text/javascript">\n\n  compteurs = new Array(10);\n  for (i=0;i<10;i++){\n    compteurs[i]=0;\n  }\n\nfunction verif(question,val,numquest){\n  var t = {{=XML(response.json(message))}}\n  var resultat = t.split(\'#\')[numquest];\n  compteurs[val]=compteurs[val]+1;\n  var valeur = val;\n  var boxes = question.getElementsByTagName(\'input\');\n  for(i=0;i<boxes.length;i++){\n    if(boxes[i].checked){\n      var boitetest = boxes[i];\n    }\n  }\n  retourval(boitetest,resultat,compteurs[val]);\n}\n\n\n$(function() {\n\n // Target all classed with ".lined"\n $(".lined").linedtextarea(\n   {selectedLine: 1}\n   );\n });\n\nfunction checkcase(id,boite){\n  var boxes = id.getElementsByTagName(\'input\');\n  for(i=0;i<boxes.length;i++){\n    if (boxes[i] === boite){\n      boite.checked = true;\n    }else{\n      boxes[i].checked = false;\n    }\n  }\n}\n\n\nfunction retourval(boite,result,val){\t\n  result = result.replace(/(\\n)+$/,\'\')\t\n    if (boite.value == result){\n      alert ("Reponse juste, vous avez eu besoin de " + val + " tentatives");\n    }else{\n      alert ("Ce n\'est pas le resultat attendu");\n    }\n}\n\n\n\nfunction download() {\n  var e="";\n  var reponses = document.getElementsByName(\'rep\');\n  var questions = document.getElementsByName(\'quest\');\n  for (i=0;i<reponses.length;i++){\n    var cpt = reponses[i].getElementsByTagName(\'textarea\');\n    var cpt2 = reponses[i].getElementsByTagName(\'input\');\n    var cpt3 = questions[i].getElementsByTagName(\'textarea\');\n    e = e + "#" + cpt3[0].value + \'\\n\';\n    if (cpt.length != 0){\n      e = e + cpt[0].value + \'\\n\';\n    }\n    for(z=0;z<cpt2.length;z++){\n      if (cpt2[z].checked){\n\te = e + "#" + cpt2[z].value + \'\\n\';\n      }\n    }\n  }\n  doDL(e);\t\n}\n\nfunction doDL(s){\n  function dataUrl(data) {return "data:x-application/text," + escape(data);}\n  window.open(dataUrl(s));\n}\n\n// output functions are configurable.  This one just appends some text\n// to a pre element.\nfunction outf(text) {\n  var mypre = sortieglobale;\n  if (cpt == 0){\n    mypre.innerHTML = mypre.innerHTML + text;\n    valeur = valeur + text;\n  } else if (cpt ==1){\n    valeur2 = valeur2 + text;     \n    mypre.innerHTML = mypre.innerHTML + text;\t\t\n  }\n}\n\nfunction builtinRead(x) {\n  if (Sk.builtinFiles === undefined || Sk.builtinFiles["files"][x] === undefined)\n    throw "File not found: \'" + x + "\'";\n  return Sk.builtinFiles["files"][x];\n}\n\n// Here\'s everything you need to run a python program in skulpt\n// grab the code from your textarea\n// get a reference to your pre element for output\n// configure the output function\n// call Sk.importMainWithBody()\nfunction runit(code,sortie,numquest) {\n  var prog = code.value;\n  var t = {{=XML(response.json(message))}}\n  var u = t.split(\'#\')[numquest];\n  valeur = "";\n  valeur2= "";\n  cpt=0;\n  sortieglobale = sortie;\n  mypre = sortie;\n  mypre.innerHTML = \'\';\n  Sk.canvas = "mycanvas";\n  Sk.pre = "output";\n  Sk.configure({output:outf, read:builtinRead});\n  mypre.innerHTML = mypre.innerHTML + "Reponse fournie :" + \'\\n\';\n  try{\n    eval(Sk.importMainWithBody("<stdin>",false,prog));\n  }catch(e){\n    outf(e + \'\\n\');\n  }\n  cpt=1;\n  mypre.innerHTML = mypre.innerHTML + "Reponse attendue :" + \'\\n\';\n  eval(Sk.importMainWithBody("<stdin>",false,u));\n  if (valeur.localeCompare(valeur2) == 0){\n    mypre.innerHTML = mypre.innerHTML + "Bonne reponse !";\n  }else{\n    mypre.innerHTML = mypre.innerHTML + "Mauvaise reponse !";\n  }\n\n}\n\n\n</script>\n\n</body>\n</html>\n'
+p7
+sS'snapshot'
+p8
+(dp9
+S'exception'
+p10
+(dp11
+S'__getslice__'
+p12
+S"<method-wrapper '__getslice__' of exceptions.IOError object>"
+p13
+sS'__str__'
+p14
+S"<method-wrapper '__str__' of exceptions.IOError object>"
+p15
+sS'__reduce__'
+p16
+S'<built-in method __reduce__ of exceptions.IOError object>'
+p17
+sS'__dict__'
+p18
+S'{}'
+p19
+sS'__sizeof__'
+p20
+S'<built-in method __sizeof__ of exceptions.IOError object>'
+p21
+sS'__init__'
+p22
+S"<method-wrapper '__init__' of exceptions.IOError object>"
+p23
+sS'__setattr__'
+p24
+S"<method-wrapper '__setattr__' of exceptions.IOError object>"
+p25
+sS'__reduce_ex__'
+p26
+S'<built-in method __reduce_ex__ of exceptions.IOError object>'
+p27
+sS'__new__'
+p28
+S'<built-in method __new__ of type object>'
+p29
+sS'errno'
+p30
+S'2'
+sS'__format__'
+p31
+S'<built-in method __format__ of exceptions.IOError object>'
+p32
+sS'__class__'
+p33
+S"<type 'exceptions.IOError'>"
+p34
+sS'filename'
+p35
+S"'/home/toinou/Documents/UPMC/Master/PSTL/UPMC-PSTL/web2py/applications/PSTL/views/layout.html'"
+p36
+sS'__doc__'
+p37
+S"'I/O operation failed.'"
+p38
+sS'__getitem__'
+p39
+S"<method-wrapper '__getitem__' of exceptions.IOError object>"
+p40
+sS'__setstate__'
+p41
+S'<built-in method __setstate__ of exceptions.IOError object>'
+p42
+sS'__getattribute__'
+p43
+S"<method-wrapper '__getattribute__' of exceptions.IOError object>"
+p44
+sS'args'
+p45
+S"(2, 'No such file or directory')"
+p46
+sS'__subclasshook__'
+p47
+S'<built-in method __subclasshook__ of type object>'
+p48
+sS'__unicode__'
+p49
+S'<built-in method __unicode__ of exceptions.IOError object>'
+p50
+sS'strerror'
+p51
+S"'No such file or directory'"
+p52
+sS'__delattr__'
+p53
+S"<method-wrapper '__delattr__' of exceptions.IOError object>"
+p54
+sS'__repr__'
+p55
+S"<method-wrapper '__repr__' of exceptions.IOError object>"
+p56
+sS'__hash__'
+p57
+S"<method-wrapper '__hash__' of exceptions.IOError object>"
+p58
+ssS'evalue'
+p59
+S"[Errno 2] No such file or directory: '/home/toinou/Documents/UPMC/Master/PSTL/UPMC-PSTL/web2py/applications/PSTL/views/layout.html'"
+p60
+sS'frames'
+p61
+(lp62
+(dp63
+S'file'
+p64
+S'/home/toinou/Documents/UPMC/Master/PSTL/UPMC-PSTL/web2py/gluon/template.py'
+p65
+sS'dump'
+p66
+(dp67
+S'builtinopen'
+p68
+S'<built-in function open>'
+p69
+sS'fileobj'
+p70
+S'undefined'
+p71
+sS'filepath'
+p72
+S"'/home/toinou/Documents/UPMC/Master/PSTL/UPMC-PSTL/web2py/applications/PSTL/views/layout.html'"
+p73
+ssS'lnum'
+p74
+I443
+sS'lines'
+p75
+(dp76
+I438
+S'        # Get the path of the file on the system.'
+p77
+sI439
+S'        filepath = self.path and os.path.join(self.path, filename) or filename'
+p78
+sI440
+S''
+sI441
+S'        # try to read the text.'
+p79
+sI442
+S'        try:'
+p80
+sI443
+S"            fileobj = open(filepath, 'rb')"
+p81
+sI444
+S'            text = fileobj.read()'
+p82
+sI445
+S'            fileobj.close()'
+p83
+sI446
+S'        except IOError:'
+p84
+sI447
+S"            self._raise_error('Unable to open included view file: ' + filepath)"
+p85
+ssS'call'
+p86
+S"(self=<gluon.template.TemplateParser object>, filename='layout.html')"
+p87
+sS'func'
+p88
+S'_get_file_text'
+p89
+sasS'pyver'
+p90
+S'Python 2.6.7: /usr/bin/python2.6 (prefix: /usr)'
+p91
+sS'etype'
+p92
+S"<type 'exceptions.IOError'>"
+p93
+sS'date'
+p94
+S'Sun Mar 31 20:13:47 2013'
+p95
+sS'locals'
+p96
+(dp97
+S'self'
+p98
+S'<gluon.template.TemplateParser object>'
+p99
+sS'filepath'
+p100
+S"'/home/toinou/Documents/UPMC/Master/PSTL/UPMC-PSTL/web2py/applications/PSTL/views/layout.html'"
+p101
+sS'context'
+p102
+S"{'A': <class 'gluon.html.A'>, 'Auth': <class 'gluon.tools.Auth'>, 'B': <class 'gluon.html.B'>, 'BEAUTIFY': <class 'gluon.html.BEAUTIFY'>, 'BODY': <class 'gluon.html.BODY'>, 'BR': <class 'gluon.html.BR'>, 'BUTTON': <class 'gluon.html.BUTTON'>, 'CAT': <class 'gluon.html.CAT'>, 'CENTER': <class 'gluon.html.CENTER'>, 'CLEANUP': <class 'gluon.validators.CLEANUP'>, ...}"
+p103
+sg35
+S"'layout.html'"
+p104
+sssS'traceback'
+p105
+S'Traceback (most recent call last):\n  File "/home/toinou/Documents/UPMC/Master/PSTL/UPMC-PSTL/web2py/gluon/template.py", line 443, in _get_file_text\n    fileobj = open(filepath, \'rb\')\nIOError: [Errno 2] No such file or directory: \'/home/toinou/Documents/UPMC/Master/PSTL/UPMC-PSTL/web2py/applications/PSTL/views/layout.html\'\n'
+p106
+s.

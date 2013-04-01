@@ -20,3 +20,5 @@
 [2013-03-23 15:45:47] EDIT welcome/private/definition.py: 0
 [2013-03-23 15:45:47] EDIT welcome/private/definition.py: 0
 [2013-03-25 11:16:16] CREATE default/tmesolo.html: 0
+[2013-03-31 21:19:30] DELETE PSTL/views/default/skulpt.js: -482
+[2013-03-31 21:19:34] DELETE PSTL/views/default/builtin.js: -1
